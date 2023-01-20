@@ -1,0 +1,23 @@
+@import '../../assets/scss/_mixins.scss';
+
+.quest {
+    max-width: 1024px;
+    width: 90%;
+    padding: 30px 0;
+    margin: 0 auto;
+    margin-bottom: var(--section-mb);
+
+    @at-root &__button {
+        margin-top: 1em;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        border: none;
+        background-color: var(--color-blue);
+        color: var(--color-white);
+        cursor: pointer;
+        @include font(20, 500, 24);
+        &:hover {
+            background-color: var(--color-blue-light);
+        }
+    }
+}
