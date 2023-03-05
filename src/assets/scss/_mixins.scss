@@ -20,4 +20,10 @@
     flex-direction: $direction;
   }
 
-  $color-blue: #1263DD;
+  @mixin section-style {
+    max-width: var(--app-max-width);
+    width: var(--app-width);
+    margin: 0 auto;
+    margin-top: 1em;
+    margin-bottom: var(--section-mb);
+  }

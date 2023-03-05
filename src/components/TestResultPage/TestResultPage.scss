@@ -1,0 +1,52 @@
+@import '../../assets/scss/_mixins.scss';
+
+.text-color-green {
+    color: var(--color-green);
+}
+
+.text-color-yellow {
+    color: var(--color-yellow);
+}
+
+.text-color-red {
+    color: var(--color-red);
+}
+
+.email {
+    @include flex(flex-start, center);
+    gap: 2rem;
+    margin-top: 2rem;
+
+    @media (max-width: 900px) {
+        display: block;
+    }
+
+    input[type='text'] {
+        @include font(18, 500, 23);
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.35rem;
+        width: 30em;
+        max-width: 100%;
+    }
+
+    @at-root &__button {
+        position: relative;
+        width: 100%;
+        &-btn {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            color: var(--color-white);
+            @include font(20, 600, 24);
+            background-color: var(--color-blue);
+            border: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--color-blue-light);
+            }
+        }
+    }
+}

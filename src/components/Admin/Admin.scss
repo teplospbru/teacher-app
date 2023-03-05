@@ -1,0 +1,95 @@
+@import '../../assets/scss/_mixins.scss';
+
+.admin {
+    width: var(--app-width);
+    max-width: var(--app-max-width);
+    margin: 0 auto;
+    padding: 30px 0;
+    @include font(20, 500, 24);
+
+    h2 {
+        margin-bottom: 4rem;
+    }
+}
+
+.student {
+    @include flex(flex-start, flex-start, column);
+    gap: 2rem;
+    margin-bottom: 6rem;
+
+    &__label {
+        @include flex(flex-start, flex-start, column);
+        gap: 0.5rem;
+        width: 100%;
+
+        input[type='text'] {
+            @include font(18, 500, 23);
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.35rem;
+            width: 30em;
+            max-width: 100%;
+
+        }
+
+        input[type='date'] {
+            @include font(18, 500, 23);
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.35rem;
+            width: 10em;
+
+        }
+    }
+
+    @at-root &__button {
+        position: relative;
+        width: 100%;
+        &-btn {
+            margin-top: 2rem;
+            margin-bottom: 3rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            color: var(--color-white);
+            @include font(20, 600, 24);
+            background-color: var(--color-blue);
+            border: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--color-blue-light);
+            }
+        }
+    }
+
+    &__link {
+        @include flex(flex-start, center);
+        gap: 20px;
+        width: 100%;
+
+        .icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            padding: 4px;
+            background-color: var(--color-blue);
+            border-radius: 5px;
+            cursor: pointer;
+    
+            svg {
+                display: block;
+                width: 100%;
+                height: 100%;
+                fill: var(--color-white);
+            }
+
+            &:hover {
+                background-color: var(--color-blue-light);
+            }
+        }
+        a {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis; /* Добавляем многоточие */
+        }
+    }
+}

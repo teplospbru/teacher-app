@@ -100,12 +100,12 @@
     }
 }
 
+.section {
+    @include section-style;
+}
+
 .about {
-    max-width: 1024px;
-    width: 90%;
-    margin: 0 auto;
-    margin-top: 1em;
-    margin-bottom: var(--section-mb);
+    @include section-style;
 
     &__gallery {
         display: grid;
@@ -140,7 +140,7 @@
         }
 
         @media (max-width: 520px) {
-            margin-bottom: 20px;
+            margin-bottom: 40px;
         }
     }
 
@@ -159,6 +159,12 @@
     &__img-single {
         position: relative;
         padding-bottom: 150%;
+
+        @media (max-width: 520px) {
+            &:not(:first-child) {
+                display: none;
+            }
+        }
     }
 
     &__img-double {
@@ -174,6 +180,12 @@
         @media (max-width: 520px) {
             margin-bottom: 20px;
         }
+
+        @media (max-width: 520px) {
+            &:not(:last-child) {
+                display: none;
+            }
+        }
     }
 
     &__img-img {
@@ -183,77 +195,6 @@
 
         @media (max-width: 520px) {
             margin-bottom: 20px;
-        }
-    }
-}
-
-.for-download {
-    width: 100%;
-    max-width: 1024px;
-    width: 90%;
-    padding: 1rem 0;
-    margin: 0 auto;
-    margin-top: 1em;
-    margin-bottom: var(--section-mb);
-    @include font(20, 500, 24);
-
-    @media (max-width: 1200px) {
-        @include font(18, 500, 21);
-    }
-
-    @at-root &__tiles {
-        width: 100%;
-        @include flex(space-between, stretch);
-        gap: 40px;
-
-        @media (max-width: 960px) {
-            flex-wrap: wrap;
-        }
-
-        @media (max-width: 520px) {
-            display: block;
-        }
-    }
-
-    @at-root &__tile {
-        flex: 0 1 25%;
-
-        @include flex(flex-start, flex-start, column);
-        gap: 25px;
-
-        @media (max-width: 960px) {
-            flex: 0 1 calc(50% - 20px);
-            gap: 20px;
-        }
-
-        @media (max-width: 520px) {
-            margin-bottom: 50px;
-            gap: 35px;
-        }
-    }
-
-    @at-root &__img {
-        width: 100%;
-        padding: 20px;
-        box-shadow: 7px 15px 46px rgba(0, 0, 0, 0.25);
-
-        img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-        }
-    }
-
-    @at-root &__button {
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.75rem;
-        text-decoration: none;
-        color: var(--color-white);
-        @include font(20, 600, 24);
-        background-color: var(--color-blue);
-
-        &:hover {
-            background-color: var(--color-blue-light);
         }
     }
 }

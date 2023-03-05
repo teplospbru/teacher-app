@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   viewBox="0 0 40 40.000002"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09, custom)"
+   sodipodi:docname="copy-40.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="3.3638608"
+     inkscape:cx="42.064761"
+     inkscape:cy="55.739524"
+     inkscape:window-width="1848"
+     inkscape:window-height="1016"
+     inkscape:window-x="72"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="rect297"
+       style="stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+       d="m 17.962891,2.4062499 c -3.021048,0 -5.5,2.4789524 -5.5,5.5 v 1.6875 H 10.03711 c -3.0210488,0 -5.5000005,2.4789521 -5.5000005,5.5000001 v 17 c 0,3.021048 2.4789517,5.5 5.5000005,5.5 h 12 c 3.021048,0 5.5,-2.478952 5.5,-5.5 v -1.6875 h 2.425781 c 3.021048,0 5.5,-2.478952 5.5,-5.5 V 7.9062499 c 0,-3.0210476 -2.478952,-5.5 -5.5,-5.5 z m 0,3 h 12 c 1.41094,0 2.5,1.0890609 2.5,2.5 V 24.90625 c 0,1.410939 -1.08906,2.5 -2.5,2.5 H 27.53711 v -12.3125 c 0,-3.021048 -2.478952,-5.5000002 -5.5,-5.5000001 h -6.574219 v -1.6875 c 0,-1.4109391 1.089061,-2.5 2.5,-2.5 z M 10.03711,12.59375 h 3.925781 8.074219 c 1.410942,0 2.5,1.089056 2.5,2.5 v 13.8125 3.1875 c 0,1.410942 -1.089058,2.5 -2.5,2.5 h -12 c -1.4109437,0 -2.5000005,-1.089058 -2.5000005,-2.5 v -17 c 0,-1.410944 1.0890568,-2.5 2.5000005,-2.5 z" />
+  </g>
+</svg>

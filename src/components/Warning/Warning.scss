@@ -1,0 +1,21 @@
+@import '../../assets/scss/_mixins.scss';
+
+.warning {
+    @include flex(flex-start, center);
+    display: inline-flex;
+    gap: 16px;
+    color: var(--color-red);
+
+    .icon {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+
+        svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--color-red);
+        }
+    }
+}

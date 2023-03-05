@@ -12,9 +12,13 @@
     --color-white: #fff;
     --color-black: #000;
     --color-blue-light: #1c6fed;
+    --color-red: #f31f1f;
+    --color-yellow: #FF9F1E;
     --section-mb: 80px;
     --header-height: 100px;
     --footer-height: 100px;
+    --app-max-width: 1024px;
+    --app-width: 90%;
 
     font-size: 62.5%;
 }
@@ -40,6 +44,13 @@ h1 {
 h2 {
     margin-bottom: 0.5em;
     @include font(40, 600, 50);
+    color: var(--color-black);
+}
+
+h3 {
+    margin-bottom: 0.5em;
+    margin-top: 1em;
+    @include font(30, 600, 40);
     color: var(--color-black);
 }
 

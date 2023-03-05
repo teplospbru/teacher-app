@@ -1,0 +1,32 @@
+@import './../../../assets/scss/_mixins.scss';
+
+.question {
+    flex: auto;
+
+    input[type='text'] {
+        @include font(18, 500, 23);
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.35rem;
+        width: 10em;
+
+    }
+
+    select {
+        @include font(18, 500, 23);
+        border-radius: 0.35rem;
+        padding: 0.25rem 0.75rem;
+    }
+
+    input[type='radio'] {
+        width: 20px;
+        height: 20px;
+        @include font(18, 500, 23);
+        margin: 0.5rem 1rem 0.5rem 0;
+        border: 2px solid black;
+    }
+
+    .radio {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+}
