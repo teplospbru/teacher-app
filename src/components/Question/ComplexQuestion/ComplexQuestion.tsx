@@ -1,9 +1,14 @@
-import React, { FC, HTMLAttributes } from 'react';
+import React, { FC, HTMLAttributes, useState } from 'react';
 import { Input, isRadioBtn, isSelect, isTextInput } from '../../../core/api/types';
 import { useInput } from '../useInput';
 import { InputField } from '../InputField/InputField';
 import { RadioField } from '../RadioField/RadioField';
 import { SelectField } from '../SelectField/SelectField';
+import { useWarning } from '../useWarning';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch, RootState } from '../../../core/redux/store';
+import { setQuestionAnswer } from '../../../core/redux/actions';
+import { Warning } from '../../Warning/Warning';
 import './ComplexQuestion.scss';
 
 interface ComplexQuestionProps extends HTMLAttributes<HTMLDivElement> {
@@ -14,25 +19,71 @@ interface ComplexQuestionProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const ComplexQuestion: FC<ComplexQuestionProps> = ({ question, inputs, index, secondIndex }) => {
-  const { inputSet } = useInput(question, inputs);
+  const dispatch = useDispatch<Dispatch>();
+  const { exercises, answers, subcollections, currentIndex } = useSelector((state: RootState) => state.checkYourself.checkYourself);
+  const { inputSet } = useInput(question, inputs); // Строит объект, из которого мапится вопрос
+  const { warning, setValueTrue, setValueFalse } = useWarning(inputSet); // флаг warning - поля в вопросе не заполнены
+  const [ isWarning, setWarning ] = useState(false); // флаг отображения предупреждения о незаполненных полях
+
+  const nextQuestion = () => { // перейти к следующему вопросу
+    if(warning) {
+      setWarning(true);
+    } else {
+      dispatch(setQuestionAnswer(currentIndex + 1));
+    }
+  }
 
   return (
-    <div className="question">
-      {inputSet.map((item, i) => {
-        if (typeof item === 'string') {
-          return item;
-        } else {
-          if (isTextInput(item)) {
-            return <InputField key={i} index={ index } secondIndex={ secondIndex } id={ item.id } />;
-          }
-          if (isSelect(item)) {
-            return <SelectField options={item.options} key={item.id} index={ index } secondIndex={ secondIndex } id={ item.id } />;
-          }
-          if (isRadioBtn(item)) {
-            return <RadioField key={item.id} options={item.options} question={question} id={item.id} index={ index } secondIndex={ secondIndex } />;
-          }
-        }
-      })}
-    </div>
+    <>
+      <h3>Вопрос {`${answers.length + 1}/${exercises.length}`}</h3>
+      <div className=''>
+        <p><b>{subcollections[answers.length].title}.</b> {subcollections[answers.length].description}</p>
+        <div className="question">
+          {inputSet.map((item, i) => {
+            if (typeof item === 'string') {
+              return item;
+            } else {
+              if (isTextInput(item)) {
+                return <InputField 
+                  key={i} 
+                  index={ index } 
+                  secondIndex={ secondIndex } 
+                  id={ item.id }
+                  onNonEmpyInput={ () => setValueTrue(item.id) } 
+                  onEmpyInput={ () => setValueFalse(item.id) } 
+                />;
+              }
+              if (isSelect(item)) {
+                return <SelectField 
+                  options={item.options} 
+                  key={item.id} 
+                  index={ index } 
+                  secondIndex={ secondIndex } 
+                  id={ item.id } 
+                  onNonEmpyInput={ () => setValueTrue(item.id) } 
+                  onEmpyInput={ () => setValueFalse(item.id) } 
+                />;
+              }
+              if (isRadioBtn(item)) {
+                return <RadioField 
+                  key={item.id} 
+                  options={item.options} 
+                  question={question} 
+                  id={item.id} 
+                  index={ index } 
+                  secondIndex={ secondIndex }
+                  onNonEmpyInput={ () => setValueTrue(item.id) } 
+                  onEmpyInput={ () => setValueFalse(item.id) }  
+                />;
+              }
+            }
+          })}
+        </div>
+        <div className='' style={{ position: 'relative' }}>
+          <button className="quest__button" onClick={ () => nextQuestion() }>Следующий вопрос</button>
+          {isWarning && <Warning position={{top: '5px'}}>Заполните поля!</Warning>}
+        </div>
+      </div>
+    </>
   );
 };

@@ -62,7 +62,7 @@ export const TestResultPage: FC<TestResultPageProps> = ({ children, grade, amoun
                     <button className="email__button-btn" onClick={() => handleButtonClick()}>
                         Отправить письмо преподавателю
                     </button>
-                    {warning.length > 0 && <Warning warning='Отправить email' position={'absolute'} />}
+                    {warning.length > 0 && <Warning>Отправить email</Warning>}
                 </div>
             </div>
         </>

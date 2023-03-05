@@ -55,6 +55,7 @@ export interface AdminInitalState {
  *   - exercises - список "упражнений"
  *   - answers - массив ответов на "вопросы"
  *   - currentIndex - текущий индекс (равен номеру вопроса в тесте - 1)
+ *   - emptyFields - флаг незаполненных полей
  */
 export interface CheckYourselfInitalState {
   checkYourself: {
@@ -63,5 +64,6 @@ export interface CheckYourselfInitalState {
     exercises: Exercise<Input>[];
     answers: boolean[];
     currentIndex: number,
+    emptyFields: boolean,
   };
 }

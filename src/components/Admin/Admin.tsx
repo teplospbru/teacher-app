@@ -62,7 +62,7 @@ export const Admin = () => {
           <button className="student__button-btn" onClick={() => handleButtonClick()}>
             Сгенерировать ссылку
           </button>
-          {warning.length > 0 && <Warning warning={warning} position={'absolute'} />}
+          {warning.length > 0 && <Warning>{warning}</Warning>}
         </div>
         {showLink && (
           <div className="student__link">

@@ -1,4 +1,4 @@
-import { fetchCheckYourselfSubcollections, setAnswer, setInputAnswer } from './checkYourselfSlice';
+import { fetchCheckYourselfSubcollections, setAnswer, setEmptyFieldsWarning, setInputAnswer } from './checkYourselfSlice';
 import { Dispatch } from './store';
 import {
   fetchSubcollections,
@@ -43,4 +43,8 @@ export const setQuestionAnswer = (currentIndex: number) => (dispatch: Dispatch) 
 
 export const setQuestionInputAnswer = (index: number, secondIndex: number, id: string, answer: string) => (dispatch: Dispatch) => {
   return dispatch(setInputAnswer({ index, secondIndex, id, answer }));
+}
+
+export const setQuestionEmptyFieldsWarning = (warning: boolean) => (dispatch: Dispatch) => {
+  return dispatch(setEmptyFieldsWarning(warning));
 }

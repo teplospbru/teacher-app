@@ -10,6 +10,7 @@ const initialState: CheckYourselfInitalState = {
         exercises: [],
         answers: [],
         currentIndex: 0,
+        emptyFields: true,
     },
 }
 
@@ -31,6 +32,7 @@ export const fetchCheckYourselfSubcollections = createAsyncThunk('admin/fetchChe
             exercises,
             answers: [],
             currentIndex: 0,
+            emptyFields: true,
         } as unknown as CheckYourselfInitalState;
     } catch(error) {
         // console.log(error)
@@ -64,6 +66,9 @@ export const checkYourselfSlice = createSlice({
                 }
             }
         },
+        setEmptyFieldsWarning(state, action) {
+            state.checkYourself.emptyFields = action.payload;
+        },
         // переходим к следующему вопросу
         setAnswer(state, action) { 
             state.checkYourself.currentIndex = action.payload;
@@ -76,5 +81,5 @@ export const checkYourselfSlice = createSlice({
     }
 })
 
-export const { setCheckYourselfSubcollectionsListData, setAnswer, setInputAnswer } = checkYourselfSlice.actions;
+export const { setCheckYourselfSubcollectionsListData, setAnswer, setInputAnswer, setEmptyFieldsWarning } = checkYourselfSlice.actions;
 export default checkYourselfSlice.reducer;

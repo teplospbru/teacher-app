@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from '../../core/redux/store';
-import { getCheckYourselfSubcollectionData, setQuestionAnswer } from '../../core/redux/actions';
+import { getCheckYourselfSubcollectionData } from '../../core/redux/actions';
 import { CircleProgressBar } from '../CircleProgressBar/CircleProgressBar';
 import { TestResultPage } from '../TestResultPage/TestResultPage';
 import { ComplexQuestion } from '../Question/ComplexQuestion/ComplexQuestion';
@@ -11,7 +11,7 @@ import './TestPage.scss';
 
 export const TestPage = () => {
   const dispatch = useDispatch<Dispatch>();
-  const { isLoading, exercises, answers, subcollections, currentIndex } = useSelector((state: RootState) => state.checkYourself.checkYourself);
+  const { isLoading, exercises, answers } = useSelector((state: RootState) => state.checkYourself.checkYourself);
   const [ isTesting, setTesting ] = useState(false); // флаг прохождения теста (после нажатия кнопки "проверь себя")
   const [test, setTest] = useState<Exercise<Input>>(exercises[answers.length]); // элемент с "вопросом"
 
@@ -26,11 +26,7 @@ export const TestPage = () => {
       setTest(exercises[answers.length]);
     }
   }, [answers.length, exercises])
-
-  const nextQuestion = () => { // перейти к следующему вопросу
-    dispatch(setQuestionAnswer(currentIndex + 1));
-  }
-
+  
   // компонент "введения"
   const Intro = () => {
     return (
@@ -63,17 +59,12 @@ export const TestPage = () => {
 
     return (
       <>
-        <h3>Вопрос {`${answers.length + 1}/${exercises.length}`}</h3>
-        <div className=''>
-          <p><b>{subcollections[answers.length].title}.</b> {subcollections[answers.length].description}</p>
-          { test && test.questions?.length && <ComplexQuestion 
+        {test && test.questions?.length && <ComplexQuestion 
             question={ (test.questions[0]).question } 
             inputs={ test.questions[0].inputs } 
             index={answers.length} 
             secondIndex={0}
-          /> }
-          <button className="quest__button" onClick={ () => nextQuestion() }>Следующий вопрос</button>
-        </div>
+          />}
       </>
     );
   }
