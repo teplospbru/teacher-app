@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSubcolloctionDocuments } from '../../core/redux/actions';
+import { getSubcollectionDocuments } from '../../core/redux/actions';
 import { Dispatch, RootState } from '../../core/redux/store';
 import './AdminQuestionsSet.scss';
 import { Question, Input } from '../../core/api/types';
@@ -9,27 +9,29 @@ import { AdminQuestion } from '../AdminQuestion/AdminQuestion';
 interface AdminQuestionsSetProps {
   title: string;
   index: number;
+  id: string;
 }
 
-export const AdminQuestionsSet: FC<AdminQuestionsSetProps> = ({ title, index }) => {
+// "вопросы" данной "субколлекции"
+export const AdminQuestionsSet: FC<AdminQuestionsSetProps> = ({ title, index, id }) => {
   const dispatch = useDispatch<Dispatch>();
-  const { exercises } = useSelector((state: RootState) => state.admin.admin.grammar);
-  const test: { title: string; tests?: Question<Input>[]; isLoading: boolean } | undefined = exercises.find(
-    (t) => t.title === title
+  const { exercises } = useSelector((state: RootState) => state.admin.admin);
+  const exercise: { id: string; questions?: Question<Input>[]; isLoading: boolean } | undefined = exercises.find(
+    (t) => t.id === id
   );
 
   useEffect(() => {
-    if (test?.isLoading) {
-      dispatch(getSubcolloctionDocuments(title));
+    if (exercise?.isLoading) { // Загружает "документы" данной "субколлекции", если флаг isLoading равен true
+      dispatch(getSubcollectionDocuments(title));
     }
-  }, [dispatch, title, test?.isLoading]);
+  }, [dispatch, title, exercise?.isLoading]);
 
   return (
     <div className="admin__subcollection-question-set">
-      {test && test.isLoading
+      {exercise && exercise.isLoading
         ? 'Loading...'
-        : test &&
-          test.tests?.map(({ question, id, inputs }, secondIndex) => (
+        : exercise &&
+          exercise.questions?.map(({ question, id, inputs }, secondIndex) => (
             <AdminQuestion key={question} question={question} inputs={inputs} id={id.toString()} title={title} secondIndex={secondIndex} index={index} />
           ))}
     </div>

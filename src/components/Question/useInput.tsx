@@ -1,16 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Input, isRadioBtn } from '../../core/api/types';
-
-export interface InputSet {
-  inputSet: (Input | string)[];
-}
+import { InputSet } from './type';
 
 /** 
  * @function parseQuestion Здесь создаётся а-ля виртуальный DOM-объект 
  */
-const parseQuestion = (question: string, inputs: Input[]): (Input | string)[] => {
+const parseQuestion = (question: string, inputs: Input[]): InputSet => {
   const match = question.match(/([^{}])+/gi);
-  const arr: (Input | string)[] = [];
+  const arr: InputSet = [];
 
   if (match !== null) {
     match.map((item) => {
@@ -25,14 +22,14 @@ const parseQuestion = (question: string, inputs: Input[]): (Input | string)[] =>
     });
   }
 
-  return arr;
+  return arr as InputSet;
 };
 
 /** Здесь, если тип инпута - radio, то объект инпута перемещается конец массива,
  * а его место занимает строка: '________'
  */
-const formatRadioInput = (inputs: (Input | string)[]) => {
-  const arr: (Input | string)[] = [...inputs];
+const formatRadioInput = (inputs: InputSet) => {
+  const arr: InputSet = [...inputs];
   let hasRadio, index;
 
   for (let i = 0; i < inputs.length - 1; i++) {
@@ -50,7 +47,7 @@ const formatRadioInput = (inputs: (Input | string)[]) => {
     arr.push(hasRadio);
   }
 
-  return arr;
+  return arr as InputSet;
 };
 
 /** Данный хук служит для создания а-ля виртуального DOM-объекта из строки question.
@@ -58,8 +55,8 @@ const formatRadioInput = (inputs: (Input | string)[]) => {
  * (объектами), взятыми из массива inputs. Текст в фигурных скобках, это идентификатор объекта
  * инпута (соответствует полю id инпута в inputs)
  */
-export const useInput = (question: string, inputs: Input[]): InputSet => {
-  const [inputSet, setInputs] = useState<(Input | string)[]>([]);
+export const useInput = (question: string, inputs: Input[]): {inputSet: InputSet} => {
+  const [inputSet, setInputs] = useState<InputSet>([]);
 
   useEffect(() => {
     if (inputs.length > 0) {
@@ -69,5 +66,5 @@ export const useInput = (question: string, inputs: Input[]): InputSet => {
     }
   }, [inputs, question]);
 
-  return { inputSet };
+  return { inputSet }
 };

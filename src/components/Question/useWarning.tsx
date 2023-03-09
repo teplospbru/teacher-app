@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { Input } from "../../core/api/types";
+import { WarningsArr } from "./type";
 
 /**
  * Данный хук определяет, нужно ли будет показывать warning, что поля в вопросе
  * не заполнены. В переменной warning вернёт true, если хоть какое-то поле не заполнено.
  */
 export const useWarning = (inputSet: (string | Input)[]) => {
-    const [values, setValues] = useState<{id: string, value: boolean}[]>([])
+    const [values, setValues] = useState<WarningsArr>([])
 
     useEffect(() => {
-    const arr: {id: string, value: boolean}[] = [];
+    const arr: WarningsArr = [];
     if(inputSet.length) {
         inputSet.forEach((item) => {
             if(typeof item !== 'string') {

@@ -17,6 +17,102 @@ describe('Главная страница', () => {
         cy.get('#for-material').scrollIntoView().should('be.visible');
         cy.wait(500);
     });
+});
+
+describe('Проверь себя ', () => {
+    beforeEach(() => {
+        cy.visit('http://localhost:8080/#/test');
+    });
+    it('Показывает зелёный прогрессбар при прохождении 10 вопросов из 10', () => {
+        cy.get('.quest__button').click();
+        cy.get('select').select('These');
+        cy.get('.quest__button').click();
+        cy.get('select').select('inputs');
+        cy.get('input').type('line');
+        cy.get('.quest__button').click();
+        cy.get(':nth-child(3) > label > input').click();
+        cy.get('.quest__button').click();
+        cy.get('select').select('inputs');
+        cy.get('input').type('line');
+        cy.get('.quest__button').click();
+        cy.get('.question > :nth-child(1)').select('my');
+        cy.get('.question > :nth-child(2)').select('He');
+        cy.get('.quest__button').click();
+        cy.get('select').select('a');
+        cy.get('.quest__button').click();
+        cy.get('select').select('him');
+        cy.get('.quest__button').click();
+        cy.get(':nth-child(3) > label > input').click();
+        cy.get('.quest__button').click();
+        cy.get('.question > :nth-child(1)').select('are');
+        cy.get('.question > :nth-child(2)').select('I\'m');
+        cy.get('.quest__button').click();
+        cy.get('select').select('at');
+        cy.get('.quest__button').click();
+
+        cy.get('.text-result').should('have.text', 'Вы ответили правильно на 10 из 10 вопросов.');
+        cy.wait(500);
+    });
+    it('Показывает жёлтый прогрессбар при прохождении 6 вопросов из 10', () => {
+        cy.get('.quest__button').click();
+        cy.get('select').select('These');
+        cy.get('.quest__button').click();
+        cy.get('select').select('inputs');
+        cy.get('input').type('вв');
+        cy.get('.quest__button').click();
+        cy.get(':nth-child(2) > label > input').click();
+        cy.get('.quest__button').click();
+        cy.get('select').select('inputs');
+        cy.get('input').type('line');
+        cy.get('.quest__button').click();
+        cy.get('.question > :nth-child(1)').select('my');
+        cy.get('.question > :nth-child(2)').select('He');
+        cy.get('.quest__button').click();
+        cy.get('select').select('an');
+        cy.get('.quest__button').click();
+        cy.get('select').select('him');
+        cy.get('.quest__button').click();
+        cy.get(':nth-child(3) > label > input').click();
+        cy.get('.quest__button').click();
+        cy.get('.question > :nth-child(1)').select('are');
+        cy.get('.question > :nth-child(2)').select('I\'m');
+        cy.get('.quest__button').click();
+        cy.get('select').select('in');
+        cy.get('.quest__button').click();
+
+        cy.get('.text-result').should('have.text', 'Вы ответили правильно на 6 из 10 вопросов.');
+        cy.wait(500);
+    });
+    it('Показывает жёлтый прогрессбар при прохождении 4 вопросов из 10', () => {
+        cy.get('.quest__button').click();
+        cy.get('select').select('This');
+        cy.get('.quest__button').click();
+        cy.get('select').select('inputs');
+        cy.get('input').type('вв');
+        cy.get('.quest__button').click();
+        cy.get(':nth-child(2) > label > input').click();
+        cy.get('.quest__button').click();
+        cy.get('select').select('input');
+        cy.get('input').type('line');
+        cy.get('.quest__button').click();
+        cy.get('.question > :nth-child(1)').select('my');
+        cy.get('.question > :nth-child(2)').select('He');
+        cy.get('.quest__button').click();
+        cy.get('select').select('an');
+        cy.get('.quest__button').click();
+        cy.get('select').select('him');
+        cy.get('.quest__button').click();
+        cy.get(':nth-child(3) > label > input').click();
+        cy.get('.quest__button').click();
+        cy.get('.question > :nth-child(1)').select('are');
+        cy.get('.question > :nth-child(2)').select('I\'m');
+        cy.get('.quest__button').click();
+        cy.get('select').select('in');
+        cy.get('.quest__button').click();
+
+        cy.get('.text-result').should('have.text', 'Вы ответили правильно на 4 из 10 вопросов.');
+        cy.wait(500);
+    });
 })
 
 describe('Админка', () => {
@@ -66,3 +162,4 @@ describe('Админка', () => {
         cy.get('.student__link > a').should('be.visible');
     });
 });
+

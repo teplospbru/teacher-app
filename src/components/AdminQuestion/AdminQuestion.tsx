@@ -17,15 +17,17 @@ interface AdminQuestionProps extends HTMLAttributes<HTMLDivElement> {
 
 export const AdminQuestion: FC<AdminQuestionProps> = ({ question, id, inputs, title, index, secondIndex }) => {
   const dispatch = useDispatch<Dispatch>();
-  const { tests } = useSelector((state: RootState) => state.admin.admin.task);
-  const test = tests.find((item) => item.title === title);
+  const { exercises } = useSelector((state: RootState) => state.admin.admin.task);
+  const test = exercises.find((item) => item.title === title);
   let checked;
 
   if (test && test?.questions) {
     checked = test.questions.some((item) => item.id === id);
   }
 
+  // Хэндлер кликак по чекбоксу
   const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(title,id)
     if (e.target.checked) {
       dispatch(setAdminQuestion(title, id));
     } else {

@@ -24,7 +24,7 @@ export const useValue = (index: number, secondIndex: number, id: string) => {
       }
       
       return () => {
-        dispatch(setQuestionInputAnswer(index, secondIndex, id, ref.current));
+        // dispatch(setQuestionInputAnswer(index, secondIndex, id, ref.current));
        }
     }, [])
   
@@ -35,3 +35,23 @@ export const useValue = (index: number, secondIndex: number, id: string) => {
 
     return { value, setValue }
 }
+
+// обрабатываем клик по инпуту в вопросе при прохождении тестов
+        // setInputAnswer(state, action) {
+        //     const exercises = state.checkYourself.exercises as ExerciseWithState[];
+        //     if(exercises.length) {
+        //         const exercise = exercises[action.payload.index] as ExerciseWithState;
+        //         if(exercise.questions) {
+        //             // ищем индекс инпута, в котором сработал useValue и записываем в элемент массива инпута с этим индексом
+        //             // введенный пользователем ответ
+        //             const index= exercise.questions[action.payload.secondIndex].inputs.findIndex((question) => question.id === action.payload.id);
+        //             exercise.questions[action.payload.secondIndex].inputs[index].answer = action.payload.answer as string;
+        //             // определяем, был ли ответ правильным и записываем его булево значение в массив ответов checkYourself.answers
+        //             const correctResult = exercise.questions[0].inputs
+        //                 .map((input) => input.correctAnswers.includes(input.answer as string))
+        //                 .every((item) => item === true);
+        //             state.checkYourself.answers[state.checkYourself.currentIndex - 1] = correctResult;
+                    
+        //         }
+        //     }
+        // },

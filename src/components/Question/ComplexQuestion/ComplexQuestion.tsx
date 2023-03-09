@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from '../../../core/redux/store';
 import { setQuestionAnswer } from '../../../core/redux/actions';
 import { Warning } from '../../Warning/Warning';
+import { useAnswer } from '../useAnswer';
+import { setQuestionInputAnswer } from '../../../core/redux/actions';
 import './ComplexQuestion.scss';
 
 interface ComplexQuestionProps extends HTMLAttributes<HTMLDivElement> {
@@ -23,12 +25,14 @@ export const ComplexQuestion: FC<ComplexQuestionProps> = ({ question, inputs, in
   const { exercises, answers, subcollections, currentIndex } = useSelector((state: RootState) => state.checkYourself.checkYourself);
   const { inputSet } = useInput(question, inputs); // Строит объект, из которого мапится вопрос
   const { warning, setValueTrue, setValueFalse } = useWarning(inputSet); // флаг warning - поля в вопросе не заполнены
+  const { answer, setAnswer } = useAnswer(inputSet); // Создаёт массив с ответами, введёнными в инпуты
   const [ isWarning, setWarning ] = useState(false); // флаг отображения предупреждения о незаполненных полях
 
   const nextQuestion = () => { // перейти к следующему вопросу
     if(warning) {
       setWarning(true);
     } else {
+      dispatch(setQuestionInputAnswer(index, secondIndex, answer));
       dispatch(setQuestionAnswer(currentIndex + 1));
     }
   }
@@ -51,6 +55,7 @@ export const ComplexQuestion: FC<ComplexQuestionProps> = ({ question, inputs, in
                   id={ item.id }
                   onNonEmpyInput={ () => setValueTrue(item.id) } 
                   onEmpyInput={ () => setValueFalse(item.id) } 
+                  onAnswer={ setAnswer }
                 />;
               }
               if (isSelect(item)) {
@@ -62,6 +67,7 @@ export const ComplexQuestion: FC<ComplexQuestionProps> = ({ question, inputs, in
                   id={ item.id } 
                   onNonEmpyInput={ () => setValueTrue(item.id) } 
                   onEmpyInput={ () => setValueFalse(item.id) } 
+                  onAnswer={ setAnswer }
                 />;
               }
               if (isRadioBtn(item)) {
@@ -73,7 +79,8 @@ export const ComplexQuestion: FC<ComplexQuestionProps> = ({ question, inputs, in
                   index={ index } 
                   secondIndex={ secondIndex }
                   onNonEmpyInput={ () => setValueTrue(item.id) } 
-                  onEmpyInput={ () => setValueFalse(item.id) }  
+                  onEmpyInput={ () => setValueFalse(item.id) } 
+                  onAnswer={ setAnswer } 
                 />;
               }
             }

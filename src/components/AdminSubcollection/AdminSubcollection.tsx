@@ -13,18 +13,20 @@ interface AdminSubcollectionProps {
   description: string;
   example: string;
   index: number;
+  id: string;
 }
 
-export const AdminSubcollection: FC<AdminSubcollectionProps> = ({ title, description, example, index }) => {
-  const { exercises } = useSelector((state: RootState) => state.admin.admin.grammar);
-  const test = exercises.find((item) => item.title === title) as ExerciseWithState;
+export const AdminSubcollection: FC<AdminSubcollectionProps> = ({ title, description, example, index, id }) => {
+  const { exercises } = useSelector((state: RootState) => state.admin.admin);
+  const exercise = exercises.find((item) => item.id === id) as ExerciseWithState;
   const dispatch = useDispatch<Dispatch>();
 
+  // Хэндлер открытия/закрытия "вопросов" из данной "субколлекции"
   const clickHandler = () => {
-    if (test.isOpen) {
-      dispatch(setAdminSubcollectionOpen(title, false));
+    if (exercise.isOpen) {
+      dispatch(setAdminSubcollectionOpen(id, false));
     } else {
-      dispatch(setAdminSubcollectionOpen(title, true));
+      dispatch(setAdminSubcollectionOpen(id, true));
     }
   };
 
@@ -33,19 +35,19 @@ export const AdminSubcollection: FC<AdminSubcollectionProps> = ({ title, descrip
       <div className="admin__subcollection-header" onClick={clickHandler}>
         <div className="icon">
           <svg className="icon" aria-hidden="true">
-            <use xlinkHref={test.isOpen ? '#minus-24' : '#plus-24'}></use>
+            <use xlinkHref={exercise.isOpen ? '#minus-24' : '#plus-24'}></use>
           </svg>
         </div>
         <h4>{title}</h4>
       </div>
-      {test.isOpen && (
+      {exercise.isOpen && (
         <>
           <div className="admin__subcollection-description">
             <p className="p-bold">{description}</p>
             {example && <p className="p-italic">Example: {example}</p>}
           </div>
 
-          <AdminQuestionsSet title={title} index={index} />
+          <AdminQuestionsSet title={title} index={index} id={id} />
         </>
       )}
     </div>

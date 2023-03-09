@@ -10,11 +10,10 @@ const initialState: CheckYourselfInitalState = {
         exercises: [],
         answers: [],
         currentIndex: 0,
-        emptyFields: true,
     },
 }
 
-export const fetchCheckYourselfSubcollections = createAsyncThunk('admin/fetchCheckYourselfSubcollections', async () => {
+export const fetchCheckYourselfSubcollections = createAsyncThunk('check-yourself/fetchCheckYourselfSubcollections', async () => {
     try {
         const response = await getSubcollectionList('check-yourself');
         const promises = response.map((item) => getSubcollectionDocs(item.title));
@@ -37,8 +36,9 @@ export const fetchCheckYourselfSubcollections = createAsyncThunk('admin/fetchChe
     } catch(error) {
         // console.log(error)
     }
-  });
+});
 
+// @ts-ignore
 export const checkYourselfSlice = createSlice({
     name: 'checkYourself',
     initialState,
@@ -49,25 +49,25 @@ export const checkYourselfSlice = createSlice({
         },
         // обрабатываем клик по инпуту в вопросе при прохождении тестов
         setInputAnswer(state, action) {
-            const exercises = state.checkYourself.exercises as ExerciseWithState[];
+            const exercises = state.checkYourself.exercises as ExerciseWithState[];       
             if(exercises.length) {
-                const exercise = exercises[action.payload.index] as ExerciseWithState;
-                if(exercise.questions) {
-                    // ищем индекс инпута, в котором сработал useValue и записываем в элемент массива инпута с этим индексом
-                    // введенный пользователем ответ
-                    const index= exercise.questions[action.payload.secondIndex].inputs.findIndex((question) => question.id === action.payload.id);
-                    exercise.questions[action.payload.secondIndex].inputs[index].answer = action.payload.answer as string;
-                    // определяем, был ли ответ правильным и записываем его булево значение в массив ответов checkYourself.answers
-                    const correctResult = exercise.questions[0].inputs
-                        .map((input) => input.correctAnswers.includes(input.answer as string))
-                        .every((item) => item === true);
-                    state.checkYourself.answers[state.checkYourself.currentIndex - 1] = correctResult;
-                    
-                }
+                const answer: { id: string, answer: string }[] = [...action.payload.answer];
+                answer.forEach((item) => {
+                    const exercise = exercises[action.payload.index] as ExerciseWithState;
+                    // debugger
+                    if(exercise.questions) {
+                        // ищем индекс инпута, в котором сработал useValue и записываем в элемент массива инпута с этим индексом
+                        // введенный пользователем ответ
+                        const index= exercise.questions[action.payload.secondIndex].inputs.findIndex((input) => input.id === item.id);
+                        exercise.questions[action.payload.secondIndex].inputs[index].answer = item.answer as string;
+                        // определяем, был ли ответ правильным и записываем его булево значение в массив ответов checkYourself.answers
+                        const correctResult = exercise.questions[0].inputs
+                            .map((input) => input.correctAnswers.includes(input.answer as string))
+                            .every((item) => item === true);
+                        state.checkYourself.answers[state.checkYourself.currentIndex] = correctResult;  
+                    }
+                }) 
             }
-        },
-        setEmptyFieldsWarning(state, action) {
-            state.checkYourself.emptyFields = action.payload;
         },
         // переходим к следующему вопросу
         setAnswer(state, action) { 
@@ -81,5 +81,5 @@ export const checkYourselfSlice = createSlice({
     }
 })
 
-export const { setCheckYourselfSubcollectionsListData, setAnswer, setInputAnswer, setEmptyFieldsWarning } = checkYourselfSlice.actions;
+export const { setCheckYourselfSubcollectionsListData, setAnswer, setInputAnswer } = checkYourselfSlice.actions;
 export default checkYourselfSlice.reducer;

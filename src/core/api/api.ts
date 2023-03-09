@@ -70,22 +70,15 @@ export const getSubcollectionDocs = async (name: string): Promise<Question<Input
   }
 };
 
-// Получаем все документы из субколлекции в БД
-// export const getSubcollectionDocsById = async (id: string): Promise<Question<Input>[]> => {
-//   const db = getFirestore(app);
-//   const arr: Question<Input>[] = [];
+// Записываем стейт в Firebase
+export const addStateDoc = async (data: { hash: string, text: string }) => {
+  const db = getFirestore(app);
 
-//   try {
-//     const querySnapshot = await getDocs(query(db, id));
+  try {
+    const res = await addDoc(collection(db, 'for-student'), data);
 
-//     querySnapshot.forEach((doc) => {
-//       const data = doc.data() as Question<Input>;
-//       // console.log(data)
-//       arr.push(data);
-//     });
-
-//     return Promise.resolve(arr);
-//   } catch (error) {
-//     return Promise.reject(error);
-//   }
-// };
+    return res.id;
+  } catch(error) {
+    return Promise.reject(error);
+  }
+}

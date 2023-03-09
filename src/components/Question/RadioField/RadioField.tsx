@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, HTMLAttributes } from 'react';
+import React, { ChangeEvent, FC, HTMLAttributes, useState } from 'react';
 import { useValue } from '../useValue';
 import './RadioField.scss';
 
@@ -11,16 +11,19 @@ interface RadioFieldProps extends HTMLAttributes<HTMLInputElement> {
   secondIndex: number;
   onNonEmpyInput: (id: string) => void;
   onEmpyInput: (id: string) => void;
+  onAnswer: (id: string, answer: string) => void;
 }
 
-export const RadioField: FC<RadioFieldProps> = ({ answers, options, id, question, index, secondIndex, onNonEmpyInput, onEmpyInput }) => {
-  const { value, setValue } = useValue(index, secondIndex, id);
+export const RadioField: FC<RadioFieldProps> = ({ onAnswer, options, id, question, index, secondIndex, onNonEmpyInput, onEmpyInput }) => {
+  // const { value, setValue } = useValue(index, secondIndex, id);
+  const [ value, setValue ] = useState('')
 
   const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
     const v = e.target.value;
 
     if(v.length) {
-      onNonEmpyInput(id)
+      onNonEmpyInput(id);
+      onAnswer(id, v);
     } else {
       onEmpyInput(id)
     }

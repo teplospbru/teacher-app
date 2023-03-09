@@ -13,13 +13,12 @@ export interface ExerciseWithState extends Exercise<Input> {
 
 // тип объекта задания ученику
 export type Task = {
-  tests: {
+  exercises: {
+    id: string;
     title: string; // название коллекции
-    questions?: {
-      // выбранные учителем вопросы
+    questions?: { // выбранные учителем вопросы
       id: string; // id вопроса
-      answers?: {
-        // ответы ученика
+      answers?: { // ответы ученика
         id: string; // id инпута
         answer: string; // ответ для этого инпута
       }[];
@@ -39,12 +38,11 @@ export type Task = {
  */
 export interface AdminInitalState {
   admin: {
-    grammar: {
-      subcollections: Subcollection[];
-      isLoading: boolean;
-      exercises: Omit<ExerciseWithState, 'questions'>[];
-    };
+    subcollections: Subcollection[];
+    isLoading: boolean;
+    exercises: ExerciseWithState[]; // Omit<ExerciseWithState, 'questions'>[]
     task: Task;
+    forSt?: ForStudentInitalState
   };
 }
 
@@ -64,6 +62,26 @@ export interface CheckYourselfInitalState {
     exercises: Exercise<Input>[];
     answers: boolean[];
     currentIndex: number,
-    emptyFields: boolean,
+  };
+}
+
+/**
+ * Первоначальный стейт слайса "для ученика". Состоит:
+ *   - subcollections - список "субколлекций"
+ *   - isLoading - флаг загрузки теста
+ *   - exercises - список "упражнений"
+ *   - answers - массив ответов на "вопросы"
+ *   - currentIndex - текущий индекс (равен номеру вопроса в тесте - 1)
+ *   - emptyFields - флаг незаполненных полей
+ */
+export interface ForStudentInitalState {
+  forStudent: {
+    subcollections: Subcollection[];
+    isLoading: boolean;
+    exercises: Exercise<Input>[];
+    answers: boolean[];
+    currentIndex: number,
+    student: string; // ФИО
+    expiryDate: string; // Требуемая дата выполнения
   };
 }

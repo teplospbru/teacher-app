@@ -17,7 +17,7 @@
  // 
  // Приложение позволяет пройти тест. "Тест" - это набор шагов с вопросами, ответив на которые
  // можно получить оценку. Каждый шаг состоит из "упражнения" (тип Exercise) с одним и более
- // вопросов (тип Question), относящихся к одной "субколлекции" (тип Subcollection).
+ // "вопросов" (тип Question), относящихся к одной "субколлекции" (тип Subcollection).
  //
  // Админка
  //
@@ -33,7 +33,7 @@
  *   - example - пример решения
 */
 export interface Subcollection {
-  id?: string;
+  id: string;
   title: string;
   description: string;
   example: string;
@@ -109,7 +109,7 @@ export type Input = TextInput | Select | RadioBtn;
  *   - массив с вопросами @type {Question<Input>[]}
  */
 export interface Exercise<Input> {
-  id?: string;
+  id: string;
   title: string;
   description?: string;
   example?: string;
