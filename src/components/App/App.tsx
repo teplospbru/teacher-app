@@ -4,7 +4,9 @@ import { Admin } from '../Admin/Admin';
 import { MainPage } from '../MainPage/MainPage';
 import { TestPage } from '../TestPage/TestPage';
 import { Template } from '../Template/Template';
+import { NotFound } from '../NotFound/NotFound';
 import './App.scss';
+import { StudentTest } from '../StudentTest/StudentTest';
 
 export const App = () => {
   return (
@@ -13,7 +15,10 @@ export const App = () => {
         <Route path="/" element={<Template />}>
           <Route path="/test" element={<TestPage />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/test/:hash" element={ <StudentTest /> } />
           <Route path="/" element={<MainPage />} />
+          <Route path='/404' element={<NotFound />}/>
+          <Route path='*' element={<NotFound />}/>
         </Route>
       </Routes>
     </Router>

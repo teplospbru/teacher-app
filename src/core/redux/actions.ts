@@ -1,3 +1,4 @@
+import { ForStudentInitalState } from './types';
 import { fetchCheckYourselfSubcollections, setAnswer, setInputAnswer, } from './checkYourselfSlice';
 import { Dispatch } from './store';
 import {
@@ -9,6 +10,7 @@ import {
   setFullNameAndExpiryDate,
   fetchAdminSubcollections,
 } from './adminSlice';
+import { setState } from './forStudentSlice';
 
 /**
  * Получает из firebase список "субколлекций" для adminSlice
@@ -60,4 +62,8 @@ export const setQuestionAnswer = (currentIndex: number) => (dispatch: Dispatch) 
 
 export const setQuestionInputAnswer = (index: number, secondIndex: number, answer: { id: string, answer: string }[]) => (dispatch: Dispatch) => {
   return dispatch(setInputAnswer({ index, secondIndex, answer }));
+}
+
+export const setForStudentState = (data: ForStudentInitalState) => (dispatch: Dispatch) => {
+  return dispatch(setState({data}));
 }

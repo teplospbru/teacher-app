@@ -136,3 +136,12 @@ export const isSelect = (input: Input): input is Select => {
 export const isRadioBtn = (input: Input): input is RadioBtn => {
   return (<RadioBtn>input).type === 'radio' && (<RadioBtn>input).options !== undefined;
 };
+
+/**
+ * Объект со стейтом в виде строки
+ */
+export interface StateFromFirebase {
+  hash: string;
+  id: string;
+  text: string;
+}

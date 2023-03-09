@@ -36,7 +36,7 @@ export const Admin = () => {
     } else {
       setWarning('');
       dispatch(setAdminFullNameAndExpiryDate(fullName, date));
-      saveForStudentStateinFirebase(state, fullName, date).then((response) => setLink(`http://localhost:8080/test/${response.hash}`));
+      saveForStudentStateinFirebase(state, fullName, date).then((response) => setLink(`http://localhost:8080/#/test/${response.hash}`));
     }
   };
 

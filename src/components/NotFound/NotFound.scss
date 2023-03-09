@@ -1,0 +1,13 @@
+@import '../../assets/scss/_mixins.scss';
+
+.not-found {
+    width: var(--app-width);
+    max-width: var(--app-max-width);
+    margin: 0 auto;
+    padding: 30px 0;
+    @include font(20, 500, 24);
+
+    h2 {
+        margin-bottom: 4rem;
+    }
+}
