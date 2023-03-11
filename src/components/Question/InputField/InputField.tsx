@@ -12,22 +12,29 @@ interface InputFieldProps extends HTMLAttributes<HTMLInputElement> {
   onAnswer: (id: string, answer: string) => void;
 }
 
-export const InputField: FC<InputFieldProps> = ({ onAnswer, index, secondIndex, id, onNonEmpyInput, onEmpyInput }) => {
+export const InputField: FC<InputFieldProps> = ({ 
+  onAnswer, 
+  index, 
+  secondIndex, 
+  id, 
+  onNonEmpyInput, 
+  onEmpyInput 
+}) => {
   // const { value, setValue } = useValue(index, secondIndex, id);
-  const [ value, setValue ] = useState('')
+  const [value, setValue] = useState('');
 
   const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
     const v = e.target.value;
 
-    if(v.length) {
+    if (v.length) {
       onNonEmpyInput(id);
       onAnswer(id, v);
     } else {
-      onEmpyInput(id)
+      onEmpyInput(id);
     }
 
-    setValue(e.target.value)
-  }
+    setValue(e.target.value);
+  };
 
   return <input type="text" value={value} onChange={handleClick} />;
 };

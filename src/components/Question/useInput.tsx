@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Input, isRadioBtn } from '../../core/api/types';
 import { InputSet } from './type';
 
-/** 
- * @function parseQuestion Здесь создаётся а-ля виртуальный DOM-объект 
+/**
+ * @function parseQuestion Здесь создаётся а-ля виртуальный DOM-объект
  */
 const parseQuestion = (question: string, inputs: Input[]): InputSet => {
   const match = question.match(/([^{}])+/gi);
@@ -55,7 +55,7 @@ const formatRadioInput = (inputs: InputSet) => {
  * (объектами), взятыми из массива inputs. Текст в фигурных скобках, это идентификатор объекта
  * инпута (соответствует полю id инпута в inputs)
  */
-export const useInput = (question: string, inputs: Input[]): {inputSet: InputSet} => {
+export const useInput = (question: string, inputs: Input[]): { inputSet: InputSet } => {
   const [inputSet, setInputs] = useState<InputSet>([]);
 
   useEffect(() => {
@@ -66,5 +66,5 @@ export const useInput = (question: string, inputs: Input[]): {inputSet: InputSet
     }
   }, [inputs, question]);
 
-  return { inputSet }
+  return { inputSet };
 };

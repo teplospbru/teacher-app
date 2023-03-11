@@ -13,26 +13,34 @@ interface SelectFieldProps extends HTMLAttributes<HTMLInputElement> {
   onAnswer: (id: string, answer: string) => void;
 }
 
-export const SelectField: FC<SelectFieldProps> = ({ onAnswer, options, index, secondIndex, id, onNonEmpyInput, onEmpyInput  }) => {
+export const SelectField: FC<SelectFieldProps> = ({
+  onAnswer,
+  options,
+  index,
+  secondIndex,
+  id,
+  onNonEmpyInput,
+  onEmpyInput,
+}) => {
   // const { value, setValue } = useValue(index, secondIndex, id);
-  const [ value, setValue ] = useState('')
+  const [value, setValue] = useState('');
 
   const handleClick = (e: ChangeEvent<HTMLSelectElement>) => {
     const v = e.target.value;
 
-    if(v.length) {
+    if (v.length) {
       onNonEmpyInput(id);
       onAnswer(id, v);
     } else {
-      onEmpyInput(id)
+      onEmpyInput(id);
     }
 
-    setValue(e.target.value)
-  }
+    setValue(e.target.value);
+  };
 
   return (
     <select onChange={handleClick} value={value}>
-      <option key={1} value={""}></option>
+      <option key={1} value={''}></option>
       {options.map((option) => (
         <option key={option} value={option}>
           {option}

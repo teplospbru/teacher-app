@@ -15,7 +15,7 @@ import { checkYourself } from './core/api/checkYourself';
 
 const devMode = process.env.NODE_ENV === 'development';
 if (devMode && module && module.hot) {
-    module.hot.accept();
+  module.hot.accept();
 }
 
 const root = ReactDom.createRoot(document.getElementById('root') as HTMLElement);

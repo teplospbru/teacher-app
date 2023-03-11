@@ -9,16 +9,18 @@ import { Input, Exercise, Subcollection } from './../api/types';
 export interface ExerciseWithState extends Exercise<Input> {
   isLoading: boolean;
   isOpen: boolean;
-};
+}
 
 // тип объекта задания ученику
 export type Task = {
   exercises: {
     id: string;
     title: string; // название коллекции
-    questions?: { // выбранные учителем вопросы
+    questions?: {
+      // выбранные учителем вопросы
       id: string; // id вопроса
-      answers?: { // ответы ученика
+      answers?: {
+        // ответы ученика
         id: string; // id инпута
         answer: string; // ответ для этого инпута
       }[];
@@ -42,7 +44,7 @@ export interface AdminInitalState {
     isLoading: boolean;
     exercises: ExerciseWithState[]; // Omit<ExerciseWithState, 'questions'>[]
     task: Task;
-    forSt?: ForStudentInitalState
+    forSt?: ForStudentInitalState;
   };
 }
 
@@ -61,7 +63,7 @@ export interface CheckYourselfInitalState {
     isLoading: boolean;
     exercises: Exercise<Input>[];
     answers: boolean[];
-    currentIndex: number,
+    currentIndex: number;
   };
 }
 
@@ -80,7 +82,7 @@ export interface ForStudentInitalState {
     isLoading: boolean;
     exercises: Exercise<Input>[];
     answers: boolean[];
-    currentIndex: number,
+    currentIndex: number;
     student: string; // ФИО
     expiryDate: string; // Требуемая дата выполнения
   };

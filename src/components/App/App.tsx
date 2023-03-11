@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Admin } from '../Admin/Admin';
 import { MainPage } from '../MainPage/MainPage';
@@ -15,10 +15,10 @@ export const App = () => {
         <Route path="/" element={<Template />}>
           <Route path="/test" element={<TestPage />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/test/:hash" element={ <StudentTest /> } />
+          <Route path="/test/:hash" element={<StudentTest />} />
           <Route path="/" element={<MainPage />} />
-          <Route path='/404' element={<NotFound />}/>
-          <Route path='*' element={<NotFound />}/>
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </Router>

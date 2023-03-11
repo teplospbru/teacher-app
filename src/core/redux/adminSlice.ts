@@ -19,42 +19,44 @@ const initialState: AdminInitalState = {
 
 export const fetchAdminSubcollections = createAsyncThunk('admin/fetchAdminSubcollections', async () => {
   try {
-      const response = await getSubcollectionList('grammar');
-      const exercises = response.map((item) => ({
-        title: item.title,
-        isLoading: true,
-        isOpen: false,
-        id: item.id,
-      }));
+    const response = await getSubcollectionList('grammar');
+    const exercises = response.map((item) => ({
+      title: item.title,
+      isLoading: true,
+      isOpen: false,
+      id: item.id,
+    }));
 
-      return {
-          subcollections: [...response],
-          isLoading: false,
-          exercises,
-          task: {
-            exercises: [],
-            student: '',
-            expiryDate: '',
-            showLink: false,
-          },
-      } as unknown as AdminInitalState;
-  } catch(error) {
-      // console.log(error)
+    return {
+      subcollections: [...response],
+      isLoading: false,
+      exercises,
+      task: {
+        exercises: [],
+        student: '',
+        expiryDate: '',
+        showLink: false,
+      },
+    } as unknown as AdminInitalState;
+  } catch (error) {
+    // console.log(error)
   }
 });
 
-export const fetchSubcollectionDocuments = createAsyncThunk('admin/fetchSubcollectionDocuments', async (title: string) => {
+export const fetchSubcollectionDocuments = createAsyncThunk(
+  'admin/fetchSubcollectionDocuments',
+  async (title: string) => {
     const response = await getSubcollectionDocs(title);
     const exercise = response.map((item) => ({
-        id: item.id,
-        title,
-        isLoading: false,
-        isOpen: false,
-        question: item.question,
-        inputs: item.inputs
+      id: item.id,
+      title,
+      isLoading: false,
+      isOpen: false,
+      question: item.question,
+      inputs: item.inputs,
     }));
 
-    return {exercise, title};
+    return { exercise, title };
   }
 );
 
@@ -63,17 +65,17 @@ export const adminSlice = createSlice({
   initialState,
   reducers: {
     // получаем данные "субколлекций" из firebase
-    setAdminSubcollectionsListData(state, action) { 
-        state.admin = action.payload;
+    setAdminSubcollectionsListData(state, action) {
+      state.admin = action.payload;
 
-        state.admin.task.exercises = (action.payload.subcollections as Subcollection[]).map((item) => ({ 
-          title: item.title, 
-          id: item.id, 
-          questions: [],
-        }));
+      state.admin.task.exercises = (action.payload.subcollections as Subcollection[]).map((item) => ({
+        title: item.title,
+        id: item.id,
+        questions: [],
+      }));
     },
 
-    // получаем "документы" определённой "субколлекции" 
+    // получаем "документы" определённой "субколлекции"
     setSubcollectionDocs(state, action) {
       state.admin.exercises = state.admin.exercises.map((item) => {
         if (item.title === action.payload.title) {
@@ -142,25 +144,25 @@ export const adminSlice = createSlice({
         },
       };
       state.admin.task.exercises.forEach((exercise) => {
-        if(exercise.questions?.length) {
-          arr.forStudent.exercises.push({ 
+        if (exercise.questions?.length) {
+          arr.forStudent.exercises.push({
             title: exercise.title,
             id: exercise.id,
             questions: exercise.questions.map((question) => {
               const index = state.admin.exercises.findIndex((item) => item.title === exercise.title);
               return state.admin.exercises[index].questions.find((item) => item.id === question.id);
-            }) as Question<Input>[]
-          })
+            }) as Question<Input>[],
+          });
         }
       });
       state.admin.subcollections.forEach((subcollection) => {
-        const exercise = state.admin.task.exercises.find((item) => subcollection.id === item.id)
-        if(exercise && exercise.questions?.length) {
+        const exercise = state.admin.task.exercises.find((item) => subcollection.id === item.id);
+        if (exercise && exercise.questions?.length) {
           arr.forStudent.subcollections.push(subcollection);
-        };
-      })
-      state.admin.forSt = arr
-    }
+        }
+      });
+      state.admin.forSt = arr;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSubcollectionDocuments.fulfilled, (state, action) => {
@@ -168,9 +170,10 @@ export const adminSlice = createSlice({
     });
     builder.addCase(fetchAdminSubcollections.fulfilled, (state, action) => {
       adminSlice.caseReducers.setAdminSubcollectionsListData(state, action);
-  })
+    });
   },
 });
 
-export const { setQuestion, unsetQuestion, setSubcollectionOpen, setFullNameAndExpiryDate, setDataAndLinkInFirebase } = adminSlice.actions;
+export const { setQuestion, unsetQuestion, setSubcollectionOpen, setFullNameAndExpiryDate, setDataAndLinkInFirebase } =
+  adminSlice.actions;
 export default adminSlice.reducer;

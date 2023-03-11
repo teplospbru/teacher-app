@@ -21,7 +21,8 @@ export const AdminQuestionsSet: FC<AdminQuestionsSetProps> = ({ title, index, id
   );
 
   useEffect(() => {
-    if (exercise?.isLoading) { // Загружает "документы" данной "субколлекции", если флаг isLoading равен true
+    if (exercise?.isLoading) {
+      // Загружает "документы" данной "субколлекции", если флаг isLoading равен true
       dispatch(getSubcollectionDocuments(title));
     }
   }, [dispatch, title, exercise?.isLoading]);
@@ -32,7 +33,15 @@ export const AdminQuestionsSet: FC<AdminQuestionsSetProps> = ({ title, index, id
         ? 'Loading...'
         : exercise &&
           exercise.questions?.map(({ question, id, inputs }, secondIndex) => (
-            <AdminQuestion key={question} question={question} inputs={inputs} id={id.toString()} title={title} secondIndex={secondIndex} index={index} />
+            <AdminQuestion
+              key={question}
+              question={question}
+              inputs={inputs}
+              id={id.toString()}
+              title={title}
+              secondIndex={secondIndex}
+              index={index}
+            />
           ))}
     </div>
   );

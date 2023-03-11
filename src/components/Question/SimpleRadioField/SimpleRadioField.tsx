@@ -14,7 +14,13 @@ export const SimpleRadioField: FC<SimpleRadioFieldProps> = ({ options, question 
       {options.map((option) => (
         <div key={option}>
           <label htmlFor={question}>
-            <input type="radio" name={question} value={option} checked={ option === value ? true : false } onChange={(e) => setValue(e.target.value)} />
+            <input
+              type="radio"
+              name={question}
+              value={option}
+              checked={option === value ? true : false}
+              onChange={(e) => setValue(e.target.value)}
+            />
             {option}
           </label>
         </div>

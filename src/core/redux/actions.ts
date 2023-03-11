@@ -1,8 +1,12 @@
+import { ForStudentExerciseState } from './../../components/Question/type';
 import { ForStudentInitalState } from './types';
-import { fetchCheckYourselfSubcollections, setAnswer, setInputAnswer, } from './checkYourselfSlice';
 import { Dispatch } from './store';
+import { 
+  fetchCheckYourselfSubcollections, 
+  setAnswer, 
+  setInputAnswer 
+} from './checkYourselfSlice';
 import {
-  // fetchSubcollections,
   fetchSubcollectionDocuments,
   setQuestion,
   unsetQuestion,
@@ -10,18 +14,18 @@ import {
   setFullNameAndExpiryDate,
   fetchAdminSubcollections,
 } from './adminSlice';
-import { setState } from './forStudentSlice';
+import { 
+  setState,
+  setExersise as setExersiseForStudent,
+  setInputValue as setInputValueForStudent
+} from './forStudentSlice';
 
 /**
  * Получает из firebase список "субколлекций" для adminSlice
  */
 export const getAdminSubcollectionsList = () => (dispatch: Dispatch) => {
   return dispatch(fetchAdminSubcollections());
-}
-
-// export const getSubcolloctionsData = () => (dispatch: Dispatch) => {
-//   return dispatch(fetchSubcollections());
-// };
+};
 
 /**
  * Получает из firebase список "вопросов" для одной "субколлекции" для adminSlice
@@ -44,26 +48,60 @@ export const unsetAdminQuestion = (title: string, id: string) => (dispatch: Disp
   return dispatch(unsetQuestion({ title, id }));
 };
 
+/**
+ * Разворачиваем "субколлекцию" в админке
+ */
 export const setAdminSubcollectionOpen = (id: string, isOpen: boolean) => (dispatch: Dispatch) => {
   return dispatch(setSubcollectionOpen({ id, isOpen }));
 };
 
+/**
+ * Сворачиваем "субколлекцию" в админке
+ */
 export const setAdminFullNameAndExpiryDate = (student: string, expiryDate: string) => (dispatch: Dispatch) => {
   return dispatch(setFullNameAndExpiryDate({ student, expiryDate }));
 };
 
+/**
+ * Создаёт стейт в слайсе chek-yourself после загрузки
+ */
 export const getCheckYourselfSubcollectionData = () => (dispatch: Dispatch) => {
   return dispatch(fetchCheckYourselfSubcollections());
-}
+};
 
+/**
+ * Переходим к следующему вопросу в chek-yourself
+ */
 export const setQuestionAnswer = (currentIndex: number) => (dispatch: Dispatch) => {
   return dispatch(setAnswer(currentIndex));
-}
+};
 
-export const setQuestionInputAnswer = (index: number, secondIndex: number, answer: { id: string, answer: string }[]) => (dispatch: Dispatch) => {
-  return dispatch(setInputAnswer({ index, secondIndex, answer }));
-}
-
+/**
+ * Записывает ответ из инпута в стейт в слайсе chek-yourself
+ */
+export const setQuestionInputAnswer =
+  (index: number, secondIndex: number, answer: { id: string; answer: string }[]) => (dispatch: Dispatch) => {
+    return dispatch(setInputAnswer({ index, secondIndex, answer }));
+  };
+  
+/**
+ * Создаёт стейт в слайсе for-student после загрузки стейта по проходу по ссылке
+ */  
 export const setForStudentState = (data: ForStudentInitalState) => (dispatch: Dispatch) => {
-  return dispatch(setState({data}));
-}
+  return dispatch(setState({ data }));
+};
+
+/**
+ * Переходим к следующему вопросу в for-student
+ */
+export const setNextExerciseForStudent = (currentIndex: number) => (dispatch: Dispatch) => {
+  return dispatch(setExersiseForStudent(currentIndex));
+};
+
+/**
+ * Записывает ответ из инпута в стейт в слайсе for-student
+ */
+export const setInputValuesForStudent = 
+  (index: number, answers: Omit<ForStudentExerciseState, 'warning'>[]) => (dispatch: Dispatch) => {
+      return dispatch(setInputValueForStudent({ index, answers }));
+  };

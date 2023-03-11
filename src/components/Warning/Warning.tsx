@@ -13,7 +13,7 @@ export const Warning: FC<WarningProps> = ({ children, position, ...restProps }) 
   };
 
   return (
-    <div className="warning" { ...restProps } style={{ ...styles, ...position }}>
+    <div className="warning" {...restProps} style={{ ...styles, ...position }}>
       <div className="icon">
         <svg aria-hidden="true">
           <use xlinkHref="#warning-24"></use>

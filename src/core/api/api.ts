@@ -10,7 +10,7 @@ import {
   setDoc,
   collectionGroup,
   query,
-  where
+  where,
 } from 'firebase/firestore';
 import { Input, Question, Subcollection, Exercise, StateFromFirebase } from './types';
 
@@ -72,24 +72,24 @@ export const getSubcollectionDocs = async (name: string): Promise<Question<Input
 };
 
 // Записываем стейт в Firebase
-export const addStateDoc = async (data: { hash: string, text: string }) => {
+export const addStateDoc = async (data: { hash: string; text: string }) => {
   const db = getFirestore(app);
 
   try {
     const res = await addDoc(collection(db, 'for-student'), data);
 
     return res.id;
-  } catch(error) {
+  } catch (error) {
     return Promise.reject(error);
   }
-}
+};
 
 // Получаем стейт из firebase
 export const getStateDoc = async (hash: string) => {
   const db = getFirestore(app);
 
   try {
-    const q = await query(collection(db, "for-student"), where("hash", "==", hash));
+    const q = await query(collection(db, 'for-student'), where('hash', '==', hash));
     const querySnapshot = await getDocs(q);
     const arr: StateFromFirebase[] = [];
 
@@ -98,12 +98,12 @@ export const getStateDoc = async (hash: string) => {
       arr.push({ ...data, id: doc.id } as StateFromFirebase);
     });
 
-    if(arr[0]) {
+    if (arr[0]) {
       return arr[0];
     } else {
-      throw Error
+      throw Error;
     }
-  } catch(error) {
+  } catch (error) {
     return Promise.reject(error);
   }
-}
+};

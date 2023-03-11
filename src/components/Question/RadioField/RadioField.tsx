@@ -14,29 +14,44 @@ interface RadioFieldProps extends HTMLAttributes<HTMLInputElement> {
   onAnswer: (id: string, answer: string) => void;
 }
 
-export const RadioField: FC<RadioFieldProps> = ({ onAnswer, options, id, question, index, secondIndex, onNonEmpyInput, onEmpyInput }) => {
+export const RadioField: FC<RadioFieldProps> = ({
+  onAnswer,
+  options,
+  id,
+  question,
+  index,
+  secondIndex,
+  onNonEmpyInput,
+  onEmpyInput,
+}) => {
   // const { value, setValue } = useValue(index, secondIndex, id);
-  const [ value, setValue ] = useState('')
+  const [value, setValue] = useState('');
 
   const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
     const v = e.target.value;
 
-    if(v.length) {
+    if (v.length) {
       onNonEmpyInput(id);
       onAnswer(id, v);
     } else {
-      onEmpyInput(id)
+      onEmpyInput(id);
     }
 
-    setValue(e.target.value)
-  }
+    setValue(e.target.value);
+  };
 
   return (
     <div className="radio">
       {options.map((option) => (
         <div key={option}>
           <label htmlFor={question}>
-            <input type="radio" name={question} value={option} checked={ option === value ? true : false } onChange={handleClick} />
+            <input
+              type="radio"
+              name={question}
+              value={option}
+              checked={option === value ? true : false}
+              onChange={handleClick}
+            />
             {option}
           </label>
         </div>

@@ -15,7 +15,7 @@ interface AdminQuestionProps extends HTMLAttributes<HTMLDivElement> {
   secondIndex: number;
 }
 
-export const AdminQuestion: FC<AdminQuestionProps> = ({ question, id, inputs, title, index, secondIndex }) => {
+export const AdminQuestion: FC<AdminQuestionProps> = ({ question, id, inputs, title }) => {
   const dispatch = useDispatch<Dispatch>();
   const { exercises } = useSelector((state: RootState) => state.admin.admin.task);
   const test = exercises.find((item) => item.title === title);
@@ -27,7 +27,7 @@ export const AdminQuestion: FC<AdminQuestionProps> = ({ question, id, inputs, ti
 
   // Хэндлер кликак по чекбоксу
   const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(title,id)
+
     if (e.target.checked) {
       dispatch(setAdminQuestion(title, id));
     } else {

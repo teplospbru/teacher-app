@@ -2,33 +2,33 @@ import { useEffect, useState } from 'react';
 import { AnswersArr, InputSet } from './type';
 
 export const useAnswer = (inputSet: InputSet) => {
-    const [values, setValues] = useState<AnswersArr>([]);
+  const [values, setValues] = useState<AnswersArr>([]);
 
-    useEffect(() => {
+  useEffect(() => {
     const arr: AnswersArr = [];
-    if(inputSet.length) {
-        inputSet.forEach((item) => {
-            if(typeof item !== 'string') {
-                arr.push({id: item.id, answer: ''});
-            }
-        })
+    if (inputSet.length) {
+      inputSet.forEach((item) => {
+        if (typeof item !== 'string') {
+          arr.push({ id: item.id, answer: '' });
+        }
+      });
     }
 
-    setValues([...arr])
-    }, [inputSet]);
+    setValues([...arr]);
+  }, [inputSet]);
 
-    const setAnswer = (id: string, answer: string) => {
-        const a = values.map((value) => {
-            if(value.id === id) {
-                return { ...value, answer }
-                }
-                return { ...value }
-            })
+  const setAnswer = (id: string, answer: string) => {
+    const a = values.map((value) => {
+      if (value.id === id) {
+        return { ...value, answer };
+      }
+      return { ...value };
+    });
 
-        setValues(a)
-    }
+    setValues(a);
+  };
 
-    const answer = [ ...values ];
-    
-    return { answer, setAnswer }
-}
+  const answer = [...values];
+
+  return { answer, setAnswer };
+};

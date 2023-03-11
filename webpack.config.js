@@ -1,4 +1,4 @@
-const webpack = require("webpack");
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -6,7 +6,7 @@ const mode = process.env.NODE_ENV || 'production';
 
 module.exports = {
   mode,
-  devtool: "eval-source-map",
+  devtool: 'eval-source-map',
   entry: './src/index.tsx',
   output: {
     clean: true,
