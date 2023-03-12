@@ -7,7 +7,7 @@ import '../../assets/svg/copy-40.svg';
 import '../../assets/svg/warning-24.svg';
 import './Admin.scss';
 import { Warning } from '../Warning/Warning';
-import { saveForStudentStateinFirebase } from '../../core/api/saveStateInFirebase';
+import { saveAdminStateInFirebase } from '../../core/api/utils';
 
 export const Admin = () => {
   const dispatch = useDispatch<Dispatch>();
@@ -37,7 +37,7 @@ export const Admin = () => {
     } else {
       setWarning('');
       dispatch(setAdminFullNameAndExpiryDate(fullName, date));
-      saveForStudentStateinFirebase(state, fullName, date).then((response) =>
+      saveAdminStateInFirebase(state, fullName, date).then((response) =>
         setLink(`http://localhost:8080/#/test/${response.hash}`)
       );
     }

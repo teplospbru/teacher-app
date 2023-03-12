@@ -5,7 +5,7 @@ import { InputSet } from './type';
 /**
  * @function parseQuestion Здесь создаётся а-ля виртуальный DOM-объект
  */
-const parseQuestion = (question: string, inputs: Input[]): InputSet => {
+export const parseQuestion = (question: string, inputs: Input[]): InputSet => {
   const match = question.match(/([^{}])+/gi);
   const arr: InputSet = [];
 

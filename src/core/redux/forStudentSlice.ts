@@ -35,20 +35,19 @@ const forStudentSlice = createSlice({
       if (exercises.length) {
         const exercise = exercises[currentIndex] as ExerciseWithState;
         if (exercise.questions) {
-            exercise.questions.forEach((question) => {
-                const index = exercise.questions.findIndex((question) => question.id); // индекс итерируемого вопроса
+            exercise.questions.forEach((question, index) => {
                 // извлекаем из аргумента answers массив с ответами для данного вопроса
                 const obj = answers.find((answer) => answer.id === question.id); 
 
                 // ищем индекс инпута и записываем в элемент массива инпута с этим индексом
                 // введенный пользователем ответ
                 if(obj) {
-                    obj.answers.forEach((element) => {
-                        const secondIndex = exercise.questions[index].inputs.findIndex((input) => input.id === element.id);
-                        if(exercise.questions[index].inputs[secondIndex]) {
-                          exercise.questions[index].inputs[secondIndex].answer = element.answer as string;
-                        }
-                    });
+                  exercise.questions[index].inputs.forEach((input) => {
+                      const secondIndex = obj.answers.findIndex((answer) => answer.id === input.id);
+                      if(obj.answers[secondIndex]) {
+                        input.answer = obj.answers[secondIndex].answer as string;
+                      }  
+                  });
                 }
             })
         }
@@ -61,7 +60,7 @@ const forStudentSlice = createSlice({
         }).every((question) => question === true)
 
         state.forStudent.answers[state.forStudent.currentIndex] = correctResult;
-    }
+      }
     }
   },
 });
