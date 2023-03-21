@@ -1,12 +1,9 @@
 import React, { ChangeEvent, FC, HTMLAttributes, useState } from 'react';
-import { useValue } from '../useValue';
 import './SelectField.scss';
 
 interface SelectFieldProps extends HTMLAttributes<HTMLInputElement> {
   answers?: string[];
   options: string[];
-  index: number;
-  secondIndex: number;
   id: string; // id инпута!
   onNonEmpyInput: (id: string) => void;
   onEmpyInput: (id: string) => void;
@@ -16,13 +13,10 @@ interface SelectFieldProps extends HTMLAttributes<HTMLInputElement> {
 export const SelectField: FC<SelectFieldProps> = ({
   onAnswer,
   options,
-  index,
-  secondIndex,
   id,
   onNonEmpyInput,
   onEmpyInput,
 }) => {
-  // const { value, setValue } = useValue(index, secondIndex, id);
   const [value, setValue] = useState('');
 
   const handleClick = (e: ChangeEvent<HTMLSelectElement>) => {

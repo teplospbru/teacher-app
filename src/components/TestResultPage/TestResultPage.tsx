@@ -1,6 +1,9 @@
 import React, { FC, PropsWithChildren, useState } from 'react';
 import './TestResultPage.scss';
 import { Warning } from '../Warning/Warning';
+import { email } from '../Template/constants';
+import emailjs from '@emailjs/browser';
+import { createMessage, validateEmail } from './utils';
 
 interface TestResultPageProps extends PropsWithChildren {
   grade: number;
@@ -9,8 +12,9 @@ interface TestResultPageProps extends PropsWithChildren {
 }
 
 export const TestResultPage: FC<TestResultPageProps> = ({ children, grade, amount, progress }) => {
-  const [warning, setWarning] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
+  const [warning, setWarning] = useState<string>(''); // почта не введена
+  const [userEmail, setUserEmail] = useState<string>('');
+  const [ isSended, setSended ] = useState(false); // флаг "письмо отправлено"
   const getColor = () => {
     if (progress > 50 && progress <= 75) {
       return 'yellow';
@@ -69,7 +73,27 @@ export const TestResultPage: FC<TestResultPageProps> = ({ children, grade, amoun
   };
 
   const handleButtonClick = () => {
-    return null;
+
+    if(validateEmail(userEmail)) {
+      const doc = createMessage(grade, amount, progress, userEmail);
+
+      emailjs.send(
+        process.env.YOUR_SERVICE_ID!, 
+        process.env.YOUR_2_TEMPLATE_ID!, 
+        { message: doc, from_name: userEmail}, 
+        process.env.YOUR_PUBLIC_KEY!,
+      ).then((result) => {
+        setSended(true)
+        setWarning('');
+        console.log(result.text);
+      }, (error) => {
+        setSended(false)
+        console.log(error.text);
+      });
+    } else {
+      setWarning('Введите сорректный email');
+    }
+    
   };
 
   return (
@@ -82,22 +106,26 @@ export const TestResultPage: FC<TestResultPageProps> = ({ children, grade, amoun
       {getText()}
       <p>
         Обратиться за консультацией по поводу допущенных вами ошибок с их разбором можно по адресу{' '}
-        <a href="mailto:fefilova@gmail.com">fefilova@gmail.com</a>
+        <a href={`mailto:${email}`}>{email}</a>
       </p>
       <h3>Получить рекомендации от преподавателя</h3>
       <p className="">
         Введите свой email, и мы бесплатно отправим вам подробный разбор каждой вашей ошибки, а также посоветуем, как не
         допускать подобных ошибок в будущем.
       </p>
-      <div className="email">
-        <input name="fullName" type="text" value={email} onChange={(e) => setEmail(e.target.value)}></input>
-        <div className="email__button">
-          <button className="email__button-btn" onClick={() => handleButtonClick()}>
-            Отправить письмо преподавателю
-          </button>
-          {warning.length > 0 && <Warning>Отправить email</Warning>}
-        </div>
-      </div>
+      {
+        isSended
+          ? (<p>Письмо отправлено преподавателю</p>)
+          : (<div className="email">
+              <input name="fullName" type="text" value={userEmail} onChange={(e) => setUserEmail(e.target.value)}></input>
+              <div className="email__button">
+                <button className="email__button-btn" onClick={() => handleButtonClick()}>
+                  Отправить письмо преподавателю
+                </button>
+                {warning.length > 0 && <Warning>{warning}</Warning>}
+              </div>
+            </div>)
+      }
     </>
   );
 };

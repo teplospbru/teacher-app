@@ -5,18 +5,18 @@ import { getStateDoc } from '../../core/api/api';
 import { setForStudentState } from '../../core/redux/actions';
 import { Dispatch, RootState } from '../../core/redux/store';
 import { ForStudentExercise } from '../Question/ForStudentExercise/ForStudentExercise';
-import './StudentTest.scss';
 import emailjs from '@emailjs/browser';
 import { createMessage } from './util';
+import './StudentTest.scss';
 
 export const StudentTest = () => {
   const dispatch = useDispatch<Dispatch>();
   const { student, expiryDate, exercises, currentIndex, answers } = useSelector((state: RootState) => state.forStudent.forStudent);
   const { hash } = useParams();
   const navigate = useNavigate();
-  const [isNowExpiryDate, setNowExpiryDate] = useState(true);
+  const [isNowExpiryDate, setNowExpiryDate] = useState(true); // вышел ли срок исполнения теста
   const [isTesting, setTesting] = useState(false); // флаг прохождения теста (после нажатия кнопки "проверь себя")
-  const [ isSended, setSended ] = useState(false);
+  const [ isSended, setSended ] = useState(false); // флаг "письмо отправлено"
 
   useEffect(() => {
     const getState = async () => {
@@ -82,18 +82,18 @@ export const StudentTest = () => {
 
   const send = () => {
     const doc = createMessage(exercises, student, expiryDate, hash!);
-console.log(doc)
-      emailjs.send(
-        'service_lx2x6re', 
-        'template_mozijbs', 
-        { message: doc}, 
-        '10yO5VLrxW8mKHdve'
-      ).then((result) => {
-        setSended(true)
-        console.log(result.text);
+
+    emailjs.send(
+      process.env.YOUR_SERVICE_ID!, 
+      process.env.YOUR_1_TEMPLATE_ID!, 
+      { message: doc}, 
+      process.env.YOUR_PUBLIC_KEY!,
+    ).then((result) => {
+      setSended(true)
+      console.log(result.text);
     }, (error) => {
-        setSended(false)
-        console.log(error.text);
+      setSended(false)
+      console.log(error.text);
     });
   }
 
@@ -105,7 +105,7 @@ console.log(doc)
               <h2>Отправка преподавателю</h2>
               <p>Нажмите, чтобы отправить результат прохождения преподавателю.</p>
               <button className="quest__button" onClick={() => send()}>
-                Отправить результат преподавателю
+                Отправить результат
               </button>
             </>)
           : (<>

@@ -1,6 +1,7 @@
 import { ForStudentInitalState, ExerciseWithState } from './types';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { ForStudentExerciseState } from './../../components/Question/type';
+import { getStateDoc } from '../api/api';
 
 const initialState: ForStudentInitalState = {
   forStudent: {
@@ -13,6 +14,17 @@ const initialState: ForStudentInitalState = {
     expiryDate: '',
   },
 };
+
+export const fetchState = createAsyncThunk('for-student/fetchState', async (hash: string) => {
+  try {
+    const { text } = await getStateDoc(hash);
+    const data = JSON.parse(text);
+
+    return data;
+  } catch (error) {
+    // console.log(error)
+  }
+})
 
 const forStudentSlice = createSlice({
   name: 'for-student',
@@ -63,6 +75,11 @@ const forStudentSlice = createSlice({
       }
     }
   },
+  extraReducers:(builder) => {
+    builder.addCase(fetchState.fulfilled, (state, action) => {
+      forStudentSlice.caseReducers.setState(state, action);
+    })
+  }
 });
 
 export const { setState, setExersise, setInputValue } = forStudentSlice.actions;

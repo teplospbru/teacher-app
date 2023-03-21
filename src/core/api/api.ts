@@ -3,26 +3,22 @@ import {
   getFirestore,
   addDoc,
   collection,
-  doc,
-  deleteDoc,
-  updateDoc,
   getDocs,
-  setDoc,
   collectionGroup,
   query,
   where,
 } from 'firebase/firestore';
-import { Input, Question, Subcollection, Exercise, StateFromFirebase } from './types';
+import { Input, Question, Subcollection, StateFromFirebase } from './types';
 
 // Initialize Firebase
 export const initializeAPI = (): FirebaseApp => {
   const firebaseApp = initializeApp({
-    apiKey: 'AIzaSyAyNJgIvFhVDFrSGIDa10sbpAsIvh18Zyw',
-    authDomain: 'fefilova-17d9d.firebaseapp.com',
-    projectId: 'fefilova-17d9d',
-    storageBucket: 'fefilova-17d9d.appspot.com',
-    messagingSenderId: '576429311396',
-    appId: '1:576429311396:web:4d596700b15fca83d7ad31',
+    apiKey: process.env.API_KEY,
+    authDomain: process.env.AUTH_DOMAIN,
+    projectId: process.env.PROJECT_ID,
+    storageBucket: process.env.STORAGE_BUCKET,
+    messagingSenderId: process.env.MESSAGING_SENDER_ID,
+    appId: process.env.APP_ID,
   });
 
   getFirestore(firebaseApp);

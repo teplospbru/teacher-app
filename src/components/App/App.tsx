@@ -3,7 +3,7 @@ import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { Admin } from '../Admin/Admin';
 import { MainPage } from '../MainPage/MainPage';
 import { TestPage } from '../TestPage/TestPage';
-import { Template } from '../Template/Template';
+import { Template } from '../Template/Template/Template';
 import { NotFound } from '../NotFound/NotFound';
 import './App.scss';
 import { StudentTest } from '../StudentTest/StudentTest';

@@ -38,7 +38,7 @@ export const Admin = () => {
       setWarning('');
       dispatch(setAdminFullNameAndExpiryDate(fullName, date));
       saveAdminStateInFirebase(state, fullName, date).then((response) =>
-        setLink(`http://localhost:8080/#/test/${response.hash}`)
+        setLink(`${process.env.URL}/#/test/${response.hash}`)
       );
     }
   };

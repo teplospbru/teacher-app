@@ -56,8 +56,6 @@ export const ForStudentQuestion: FC<ForStudentQuestionProps> = ({ question, inpu
                 return (
                   <InputField
                     key={i}
-                    index={index}
-                    secondIndex={secondIndex}
                     id={item.id}
                     onNonEmpyInput={() => setValueTrue(item.id)}
                     onEmpyInput={() => setValueFalse(item.id)}
@@ -70,8 +68,6 @@ export const ForStudentQuestion: FC<ForStudentQuestionProps> = ({ question, inpu
                   <SelectField
                     options={item.options}
                     key={item.id}
-                    index={index}
-                    secondIndex={secondIndex}
                     id={item.id}
                     onNonEmpyInput={() => setValueTrue(item.id)}
                     onEmpyInput={() => setValueFalse(item.id)}
@@ -86,8 +82,6 @@ export const ForStudentQuestion: FC<ForStudentQuestionProps> = ({ question, inpu
                     options={item.options}
                     question={question}
                     id={item.id}
-                    index={index}
-                    secondIndex={secondIndex}
                     onNonEmpyInput={() => setValueTrue(item.id)}
                     onEmpyInput={() => setValueFalse(item.id)}
                     onAnswer={setAnswer}

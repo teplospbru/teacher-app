@@ -1,6 +1,9 @@
 import { Exercise, Input } from "../../core/api/types";
 import { parseQuestion } from '../Question/useInput';
 
+/**
+ * Генерирует письмо с результатами прохождения теста учеником
+ */
 export const createMessage = (exercises: Exercise<Input>[], student: string, expiryDate: string, hash: string) => {
     let doc = ''; // Отчёт о прохождении теста
 
@@ -29,7 +32,7 @@ export const createMessage = (exercises: Exercise<Input>[], student: string, exp
       doc = doc + '\n';
     });
 
-    doc = doc + `Тест: http://localhost:8080/#/test/${hash}\n\n`
+    doc = doc + `Тест: ${process.env.URL}/#/test/${hash}\n\n`
 
     return doc;
 }

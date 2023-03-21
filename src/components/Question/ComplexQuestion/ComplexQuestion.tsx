@@ -56,8 +56,6 @@ export const ComplexQuestion: FC<ComplexQuestionProps> = ({ question, inputs, in
                 return (
                   <InputField
                     key={i}
-                    index={index}
-                    secondIndex={secondIndex}
                     id={item.id}
                     onNonEmpyInput={() => setValueTrue(item.id)}
                     onEmpyInput={() => setValueFalse(item.id)}
@@ -70,8 +68,6 @@ export const ComplexQuestion: FC<ComplexQuestionProps> = ({ question, inputs, in
                   <SelectField
                     options={item.options}
                     key={item.id}
-                    index={index}
-                    secondIndex={secondIndex}
                     id={item.id}
                     onNonEmpyInput={() => setValueTrue(item.id)}
                     onEmpyInput={() => setValueFalse(item.id)}
@@ -86,8 +82,6 @@ export const ComplexQuestion: FC<ComplexQuestionProps> = ({ question, inputs, in
                     options={item.options}
                     question={question}
                     id={item.id}
-                    index={index}
-                    secondIndex={secondIndex}
                     onNonEmpyInput={() => setValueTrue(item.id)}
                     onEmpyInput={() => setValueFalse(item.id)}
                     onAnswer={setAnswer}

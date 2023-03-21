@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes, useState, useEffect } from 'react';
+import React, { FC, HTMLAttributes, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Dispatch, RootState } from '../../../core/redux/store';
 import { setInputValuesForStudent, setNextExerciseForStudent } from '../../../core/redux/actions';
@@ -38,6 +38,8 @@ const [isWarning, setWarning] = useState(false); // флаг отображен�
   };
 
 // Это нужно для сохранения содержимого инпутов в сторе (нужно разобраться с багом currentIndex + 1)
+// для этого нужно создать другой экшн, похожий на setInputValuesForStudent, но который не записывает 
+// новое значение currentIndex
 //   useEffect(() => {
 //     return () => {
 //         const data = state.map((item) => ({ id: item.id, answers: [ ...item.answers ] })) as Omit<ForStudentExerciseState, 'warning'>[]

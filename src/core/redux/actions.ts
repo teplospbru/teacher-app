@@ -2,9 +2,9 @@ import { ForStudentExerciseState } from './../../components/Question/type';
 import { ForStudentInitalState } from './types';
 import { Dispatch } from './store';
 import { 
-  fetchCheckYourselfSubcollections, 
-  setAnswer, 
-  setInputAnswer 
+  fetchState as fetchStateCheckYourself, 
+  setExersise as setExersiseCheckYourself,
+  setInputValue as  setInputValueCheckYourself,
 } from './checkYourselfSlice';
 import {
   fetchSubcollectionDocuments,
@@ -15,6 +15,7 @@ import {
   fetchAdminSubcollections,
 } from './adminSlice';
 import { 
+  fetchState as fetchStateForStudent,
   setState,
   setExersise as setExersiseForStudent,
   setInputValue as setInputValueForStudent
@@ -66,14 +67,14 @@ export const setAdminFullNameAndExpiryDate = (student: string, expiryDate: strin
  * Создаёт стейт в слайсе chek-yourself после загрузки
  */
 export const getCheckYourselfSubcollectionData = () => (dispatch: Dispatch) => {
-  return dispatch(fetchCheckYourselfSubcollections());
+  return dispatch(fetchStateCheckYourself());
 };
 
 /**
  * Переходим к следующему вопросу в chek-yourself
  */
 export const setQuestionAnswer = (currentIndex: number) => (dispatch: Dispatch) => {
-  return dispatch(setAnswer(currentIndex));
+  return dispatch(setExersiseCheckYourself(currentIndex));
 };
 
 /**
@@ -81,14 +82,21 @@ export const setQuestionAnswer = (currentIndex: number) => (dispatch: Dispatch) 
  */
 export const setQuestionInputAnswer =
   (index: number, secondIndex: number, answer: { id: string; answer: string }[]) => (dispatch: Dispatch) => {
-    return dispatch(setInputAnswer({ index, secondIndex, answer }));
+    return dispatch(setInputValueCheckYourself({ index, secondIndex, answer }));
   };
   
 /**
  * Создаёт стейт в слайсе for-student после загрузки стейта по проходу по ссылке
  */  
+export const setForStudentStateWithHash = (hash: string) => (dispatch: Dispatch) => {
+  return dispatch(fetchStateForStudent(hash));
+};
+
+/**
+ * Создаёт стейт в слайсе for-student после загрузки стейта по проходу по ссылке
+ */  
 export const setForStudentState = (data: ForStudentInitalState) => (dispatch: Dispatch) => {
-  return dispatch(setState({ data }));
+  return dispatch(setState({data}));
 };
 
 /**

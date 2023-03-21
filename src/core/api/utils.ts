@@ -2,6 +2,7 @@ import { addStateDoc } from './api';
 import { Question, Input } from './types';
 import { AdminInitalState, ForStudentInitalState } from '../redux/types';
 
+// создаёт хэш
 export async function digestMessage(message: string) {
   const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
   const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8); // hash the message
@@ -10,8 +11,9 @@ export async function digestMessage(message: string) {
   return hashHex;
 };
 
-
-
+/**
+ * преобразовывает стейт из слайса forStudentSlice в строку и сохраняет его в firestore
+ */
 export const saveAdminStateInFirebase = async (state: AdminInitalState, fullName: string, date: string) => {
   const arr: ForStudentInitalState = {
     forStudent: {
@@ -51,6 +53,8 @@ export const saveAdminStateInFirebase = async (state: AdminInitalState, fullName
   return { id, hash, text };
 };
 
+// после прохождения теста преобразовывает стейт из слайса forStudentSlice в строку и сохраняет 
+// его в firestore (пока не использую)
 export const saveForStudentStateInFirebase = async (state: ForStudentInitalState) => {
   const arr: ForStudentInitalState = {
     forStudent: {

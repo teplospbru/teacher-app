@@ -13,8 +13,8 @@ const initialState: CheckYourselfInitalState = {
   },
 };
 
-export const fetchCheckYourselfSubcollections = createAsyncThunk(
-  'check-yourself/fetchCheckYourselfSubcollections',
+export const fetchState = createAsyncThunk(
+  'check-yourself/fetchState',
   async () => {
     try {
       const response = await getSubcollectionList('check-yourself');
@@ -47,11 +47,11 @@ export const checkYourselfSlice = createSlice({
   initialState,
   reducers: {
     // получаем данные из firebase
-    setCheckYourselfSubcollectionsListData(state, action) {
+    setState(state, action) {
       state.checkYourself = action.payload;
     },
     // обрабатываем клик по инпуту в вопросе при прохождении тестов
-    setInputAnswer(state, action) {
+    setInputValue(state, action) {
       const exercises = state.checkYourself.exercises as ExerciseWithState[];
       if (exercises.length) {
         const answer: { id: string; answer: string }[] = [...action.payload.answer];
@@ -75,16 +75,16 @@ export const checkYourselfSlice = createSlice({
       }
     },
     // переходим к следующему вопросу
-    setAnswer(state, action) {
+    setExersise(state, action) {
       state.checkYourself.currentIndex = action.payload;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchCheckYourselfSubcollections.fulfilled, (state, action) => {
-      checkYourselfSlice.caseReducers.setCheckYourselfSubcollectionsListData(state, action);
+    builder.addCase(fetchState.fulfilled, (state, action) => {
+      checkYourselfSlice.caseReducers.setState(state, action);
     });
   },
 });
 
-export const { setCheckYourselfSubcollectionsListData, setAnswer, setInputAnswer } = checkYourselfSlice.actions;
+export const { setState, setExersise, setInputValue } = checkYourselfSlice.actions;
 export default checkYourselfSlice.reducer;

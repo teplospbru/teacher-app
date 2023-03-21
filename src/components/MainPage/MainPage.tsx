@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { Carousel } from '../Carousel/Carousel';
 import { Cards } from '../Cards/Cards';
 import { certificates, downloadCardsForParents, downloadCardsForTeachers } from './content';
+import { name_surname } from '../Template/constants';
 
 export const MainPage = () => {
   const aboutRef = useRef<null | HTMLDivElement>(null);
@@ -36,11 +37,11 @@ export const MainPage = () => {
       <section className="banner">
         <div className="banner__container">
           <div className="banner__info">
-            <h1>Фефилова Ольга Алексеевна</h1>
+            <h1>{name_surname}</h1>
             учитель английского языка
           </div>
           <div className="banner__img">
-            <img src={require('../../assets/img/Фефилова.png')} alt="фото Фефиловой" className="banner__img-img" />
+            <img src={require('../../assets/img/Фефилова.png')} alt={'фото: ' + name_surname} className="banner__img-img" />
           </div>
         </div>
         <Link to="about" smooth duration={500} className="banner__arrow" href="#about">
