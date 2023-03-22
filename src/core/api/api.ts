@@ -91,6 +91,7 @@ export const getStateDoc = async (hash: string) => {
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
+      console.log(data)
       arr.push({ ...data, id: doc.id } as StateFromFirebase);
     });
 

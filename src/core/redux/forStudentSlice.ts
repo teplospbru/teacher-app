@@ -19,7 +19,7 @@ export const fetchState = createAsyncThunk('for-student/fetchState', async (hash
   try {
     const { text } = await getStateDoc(hash);
     const data = JSON.parse(text);
-
+console.log(data)
     return data;
   } catch (error) {
     // console.log(error)
