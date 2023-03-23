@@ -1,5 +1,4 @@
 import { ForStudentExerciseState } from './../../components/Question/type';
-import { ForStudentInitalState } from './types';
 import { Dispatch } from './store';
 import { 
   fetchState as fetchStateCheckYourself, 
@@ -16,7 +15,6 @@ import {
 } from './adminSlice';
 import { 
   fetchState as fetchStateForStudent,
-  setState,
   setExersise as setExersiseForStudent,
   setInputValue as setInputValueForStudent
 } from './forStudentSlice';
@@ -90,13 +88,6 @@ export const setQuestionInputAnswer =
  */  
 export const setForStudentStateWithHash = (hash: string) => (dispatch: Dispatch) => {
   return dispatch(fetchStateForStudent(hash));
-};
-
-/**
- * Создаёт стейт в слайсе for-student после загрузки стейта по проходу по ссылке
- */  
-export const setForStudentState = (data: ForStudentInitalState) => (dispatch: Dispatch) => {
-  return dispatch(setState({data}));
 };
 
 /**

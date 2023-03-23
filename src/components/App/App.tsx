@@ -7,6 +7,7 @@ import { Template } from '../Template/Template/Template';
 import { NotFound } from '../NotFound/NotFound';
 import './App.scss';
 import { StudentTest } from '../StudentTest/StudentTest';
+import { HashRoute } from '../HashRoute/HashRoute';
 
 export const App = () => {
   return (
@@ -15,7 +16,11 @@ export const App = () => {
         <Route path="/" element={<Template />}>
           <Route path="/test" element={<TestPage />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/test/:hash" element={<StudentTest />} />
+          <Route path="/test/:hash" element={
+            <HashRoute>
+              <StudentTest />
+            </HashRoute>
+          } />
           <Route path="/" element={<MainPage />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />

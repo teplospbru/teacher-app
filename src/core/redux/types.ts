@@ -85,5 +85,6 @@ export interface ForStudentInitalState {
     currentIndex: number;
     student: string; // ФИО
     expiryDate: string; // Требуемая дата выполнения
+    hash?: string | null;
   };
 }

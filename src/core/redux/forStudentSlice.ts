@@ -12,6 +12,7 @@ const initialState: ForStudentInitalState = {
     currentIndex: 0,
     student: '',
     expiryDate: '',
+    hash: null,
   },
 };
 
@@ -20,7 +21,7 @@ export const fetchState = createAsyncThunk('for-student/fetchState', async (hash
     const { text } = await getStateDoc(hash);
     const data = JSON.parse(text);
 console.log(data)
-    return data;
+    return {data, hash};
   } catch (error) {
     // console.log(error)
   }
@@ -33,6 +34,7 @@ const forStudentSlice = createSlice({
     // наполняем стейт
     setState(state, action) {
       state.forStudent = action.payload.data.forStudent;
+      state.forStudent.hash = action.payload.hash;
     },
     // переходим к следующему вопросу
     setExersise(state, action) {
